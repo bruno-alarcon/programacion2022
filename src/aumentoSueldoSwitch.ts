@@ -2,6 +2,7 @@ let sueldo: number = Number(prompt("Ingrese su sueldo actual"));
 let nuevoSueldo: number = 0;
 let sueldoActual: number = 0;
 
+//Cambio la variable del switch según el sueldo ingresado.
 if (sueldo > 0 && sueldo <= 15000) {
   sueldoActual = 1;
 }
@@ -14,6 +15,7 @@ if (sueldo > 20000 && sueldo <= 25000) {
   sueldoActual = 3;
 }
 
+//Según el valor que tomo la variable sueldoActuel ingresa a uno de los casos, de lo contrario ingresa al default.
 switch (sueldoActual) {
   case 1:
     nuevoSueldo = sueldo * 1.2;
