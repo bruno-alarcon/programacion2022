@@ -1,0 +1,2 @@
+function calcularPotencia(base, exp) {
+ 
