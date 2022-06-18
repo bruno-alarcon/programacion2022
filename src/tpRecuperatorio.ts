@@ -6,17 +6,31 @@ function ingresarProductos(arregloProductos: string[]): void {
 
 function ingresarPrecioProductos(precioProducto: number[]): void {
   for (let i: number = 0; i < precioProducto.length; i++) {
-    precioProducto[i] = Number(
+    let precio: number = Number(
       prompt("Ingrese el precio del siguiente producto: " + tipoProducto[i])
     );
+    while (precio <= 0) {
+      precio = Number(
+        prompt("Ingrese el precio del siguiente producto: " + tipoProducto[i])
+      );
+    }
+    precioProducto[i] = precio;
   }
 }
 
 function ingresarCantDeCadaProducto(cantidadDeProductos: number[]): void {
   for (let i: number = 0; i < cantidadDeProductos.length; i++) {
-    cantidadDeProductos[i] = Number(
+    let cantidad: number = Number(
       prompt("Ingrese la cantidad de " + tipoProducto[i] + " que va a comprar.")
     );
+    while (cantidad <= 0) {
+      cantidad = Number(
+        prompt(
+          "Ingrese la cantidad de " + tipoProducto[i] + " que va a comprar."
+        )
+      );
+    }
+    cantidadDeProductos[i] = cantidad;
   }
 }
 
@@ -27,7 +41,6 @@ function calcularCompraTotal(): number {
   for (let i: number = 0; i < arrayPrecioParcial.length; i++) {
     arrayPrecioParcial[i] = cantidadDeCadaProducto[i] * precioUnitario[i];
   }
-  console.log("arrayPrecioParcial " + arrayPrecioParcial);
 
   for (let i: number = 0; i < arrayPrecioParcial.length; i++) {
     precioTotal = arrayPrecioParcial[i] + precioTotal;
@@ -38,21 +51,56 @@ function calcularCompraTotal(): number {
 
 function evaluarCompra(compraT: number) {
   if (compraT < 1000) {
-    console.log("usted no partcipara del sorteo.");
+    console.log(
+      "EL TOTAL DE SU COMPRA ES: $" +
+        compraT +
+        ".  USTED NO PARTICIPARÁ DEL SORTEO."
+    );
   } else if (compraT > 3000) {
-    console.log("Usted participará del sorteo por un 0km.");
-  } else if (compraT > 2000 && compraT < 3000) {
-    console.log("Usted participará del sorteo por una moto.");
-  } else if (compraT > 1000 && compraT < 2000) {
-    console.log("Usted participará del sorteo por un TV led.");
-  } else {
-    console.log("Usted no partcipara del sorteo.");
+    console.log(
+      "EL TOTAL DE SU COMPRA ES: $" +
+        compraT +
+        ".  USTED PARTICIPARÁ DEL SORTEO POR UN 0KM."
+    );
+  } else if (compraT > 2000) {
+    console.log(
+      "EL TOTAL DE SU COMPRA ES: $" +
+        compraT +
+        ".  USTED PARTICIPARÁ DEL SORTEO POR UNA MOTO."
+    );
+  } else if (compraT > 1000) {
+    console.log(
+      "EL TOTAL DE SU COMPRA ES: $" +
+        compraT +
+        ".  USTED PARTICIPARÁ DEL SORTEO POR UN TV LED."
+    );
+  }
+}
+
+function mostrarDetalleCompra() {
+  console.log(
+    "--------- * --------- * -------- * ------- * ---------- * ---------"
+  );
+  console.log("DETALLE DE COMPRA: ");
+
+  for (let i: number = 0; i < tipoProducto.length; i++) {
+    console.log(
+      tipoProducto[i] +
+        "    " +
+        cantidadDeCadaProducto[i] +
+        " Unidades " +
+        " ---- Precio unitario $" +
+        precioUnitario[i] +
+        " ---- Total  $" +
+        precioUnitario[i] * cantidadDeCadaProducto[i]
+    );
   }
 }
 
 let cantidadProductos: number = Number(
   prompt("Ingrese la cantidad de productos ")
 );
+
 let tipoProducto: string[] = new Array(cantidadProductos);
 let precioUnitario: number[] = new Array(cantidadProductos);
 let cantidadDeCadaProducto: number[] = new Array(cantidadProductos);
@@ -62,8 +110,5 @@ ingresarProductos(tipoProducto);
 ingresarPrecioProductos(precioUnitario);
 ingresarCantDeCadaProducto(cantidadDeCadaProducto);
 compraTotal = calcularCompraTotal();
-console.log(tipoProducto);
-console.log(precioUnitario);
-console.log(cantidadDeCadaProducto);
-console.log(compraTotal);
+mostrarDetalleCompra();
 evaluarCompra(compraTotal);
